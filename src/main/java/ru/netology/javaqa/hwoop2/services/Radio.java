@@ -1,7 +1,18 @@
 package ru.netology.javaqa.hwoop2.services;
 public class Radio {
-    private int currentVolume;
-    private int currentStation;
+    private int maxVolume = 100;
+    private int minVolume = 0;
+    private int currentVolume = minVolume;
+    private int maxStation = 9;
+    private int minStation = 0;
+    private int currentStation = minStation;
+
+    public Radio(int size) {
+        maxStation = size - 1;
+    }
+
+    public Radio () {
+    }
 
     public int getCurrentVolume() {
         return currentVolume;
@@ -10,26 +21,26 @@ public class Radio {
         return currentStation;
     }
 
-    public void setCurrentVolume(int newCurrentVolume) {
-        if (newCurrentVolume < 0) {
+    public void setCurrentVolume(int newCurrentVolume) { // задаем сеттер
+        if (newCurrentVolume < minVolume) {
             return;
         }
-        if (newCurrentVolume > 100) {
+        if (newCurrentVolume > maxVolume) {
             return;
         }
         currentVolume = newCurrentVolume;
     }
 
-    public void increaseVolume() {
-        if (currentVolume < 100) {
+    public void increaseVolume() { // увеличение громкости
+        if (currentVolume < maxVolume) {
             currentVolume++;
         } else {
             int volume = currentVolume;
             setCurrentVolume(volume);
         }
     }
-    public void decreaseVolume() {
-        if (currentVolume > 0) {
+    public void decreaseVolume() { // уменьшение громкости
+        if (currentVolume > minVolume) {
             currentVolume--;
         } else {
             int volume = currentVolume;
@@ -38,28 +49,28 @@ public class Radio {
     }
 
     public void setCurrentStation(int newStation) {
-        if (newStation < 0) {
+        if (newStation < minStation) {
             return;
         }
-        if (newStation > 9) {
+        if (newStation > maxStation) {
             return;
         }
         currentStation = newStation;
     }
 
-    public void nextStation() {
-        if (currentStation < 9) {
+    public void nextStation() { // переход на следующую радиостанцию
+        if (currentStation < maxStation) {
             currentStation++;
         } else {
-            currentStation = 0;
+            currentStation = minStation;
         }
     }
 
-    public void prevStation() {
-        if (currentStation > 0) {
+    public void prevStation() { // переход на предыдущую радиостанцию
+        if (currentStation > minStation) {
             currentStation--;
         } else {
-            currentStation = 9;
+            currentStation = maxStation;
         }
     }
 }
